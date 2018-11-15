@@ -1,0 +1,96 @@
+<html>
+<title>Index</title>
+
+<h2>A testing page for account creation</h2>
+<form id="accountCreation" action="/Index" method="post"> <!--a form to send queries to DB via "POST" method-->
+    For shelters, please fill this shelter name only:<input  type="text" name="sName" >
+    <br/>
+    For spoters, fill First name:<input  type="text" name="fName" >
+    <br/>
+    For spoters, fil Last name:<input  type="text" name="lName" >
+    <br/>
+    <select name="shelterSpoter"> <!--let the user pick identity by selecting, could use input field instead-->
+        <option value="spoter">I'm a spoter</option>
+        <option value="shelter">I'm a shelter</option>
+    </select>
+    <br/>
+	Your password:<input  type="text" name="password" >
+    <br/>
+	Your address street:<input type="text" name="inputStreet">
+	<br/>
+	Your address city:<input type="text" name="inputCity">
+	<br/>
+	Your address state:<input type="text" name="inputState">
+	<br/>
+	Your address zip:<input type="number" name="inputZip">
+	<br/>
+	<input type="hidden" name="ID" value="{{lastID}}"><!--this is the newly created AddressID. used only for updating the page. invisible to user-->
+    <br/>
+    <input type="submit" value="Submit">
+</form>
+
+<br/>
+<h3>Current Spoter list:</h3> <!--a table to display spoters -->
+<table>
+    <thead> 
+        <th>First Name--</th> 
+        <th>Last Name--</th>
+        <th>location ID--</th> 
+        <th>Password--</th>  <!--only for debugging uses, will be invisible in later polished product -->
+    </thead> 
+    <tbody> 
+        {{#each Spoters}} 
+        <tr> 
+            <td>{{fName}}</td> 
+            <td>{{lName}}</td> 
+            <td>{{locID}}</td>
+            <td>{{password}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+<h3>Current Shelter list:</h3> <!--a table to display shelters -->
+<table>
+    <thead> 
+        <th>Shelter Name--</th> 
+        <th>location ID--</th>  
+    </thead> 
+    <tbody> 
+        {{#each Shelters}} 
+        <tr> 
+            <td>{{name}}</td> 
+            <td>{{locID}}</td>
+            <td>{{password}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+<h3>Current Address list:</h3> <!--a table to display shelters -->
+<table>
+    <thead> 
+        <th>location ID--</th> 
+        <th>street------------</th>
+        <th>city-------------</th>  
+        <th>state-------------</th>  
+        <th>zip---------------</th>  
+    </thead> 
+    <tbody> 
+        {{#each Address}} 
+        <tr> 
+            <td>{{locID}}</td> 
+            <td>{{street}}</td> 
+            <td>{{city}}</td>
+            <td>{{state}}</td>
+            <td>{{zip}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+
+</html>
