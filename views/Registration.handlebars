@@ -1,0 +1,144 @@
+<html>
+<title>Registration</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<style>
+.jumbotron{
+    background-color:#33FFB5;
+    color:black;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs {
+    margin-bottom: 0;
+}
+</style>
+</head>
+<div class="container">
+    <div class="page-header">
+        <h1>Registration page</h1>
+    </div>
+<body>
+    <div class="jumbotron">
+<form id="accountCreation" action="/Registration" method="post"> <!--a form to send queries to DB via "POST" method-->
+    For shelters, please fill this shelter name only:<input  type="text" name="sName" >
+    <br/>
+    For spoters, fill First name:<input  type="text" name="fName" >
+    <br/>
+    For spoters, fil Last name:<input  type="text" name="lName" >
+    <br/>
+    Register as:<select name="shelterSpoter"> <!--let the user pick identity by selecting, could use input field instead-->
+        <option value="spoter">register as spoter</option>
+        <option value="shelter">register as shelter employee</option>
+    </select>
+    <br/>
+    Your password:<input  type="password" name="password" >
+    <br/>
+    Your address street:<input type="text" name="inputStreet">
+    <br/>
+    Your address city:<input type="text" name="inputCity">
+    <br/>
+    Your address state:<input type="text" name="inputState">
+    <br/>
+    Your address zip:<input type="number" name="inputZip">
+    <br/>
+    Your phone number(optional):<input type="number" name="inputNum">
+    <br/>
+    Your email address(optional):<input type="text" name="inputEmail">
+    <br/>
+    <input type="hidden" name="ID" value="{{lastID}}"><!--this is the newly created AddressID. used only for updating the page. invisible to user-->
+    <br/>
+    <input type="submit" value="Submit" style="color:black">
+</form>
+<br/>
+<h2>The following tables are for debugging and graders' convenience, it will not display during final release</h2>
+<br/>
+<h3>Current Spoter list:</h3> <!--a table to display spoters -->
+<table>
+    <thead> 
+        <th>First Name----</th> 
+        <th>Last Name-----</th>
+        <th>location ID---</th> 
+        <th>Password------</th>  <!--only for debugging uses, will be invisible in later polished product -->
+        <td>Phone---------</td>
+        <td>Email---------</td>
+        <td>reward points-</td>
+    </thead> 
+    <tbody> 
+        {{#each Spoters}} 
+        <tr> 
+            <td>{{fName}}</td> 
+            <td>{{lName}}</td> 
+            <td>{{locID}}</td>
+            <td>{{password}}</td>
+            <td>{{phone}}</td>
+            <td>{{email}}</td>
+            <td>{{points}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+<h3>Current Shelter list:</h3> <!--a table to display shelters -->
+<table>
+    <thead> 
+        <th>Shelter Name------</th> 
+        <th>location ID-------</th>
+        <th>Password----------</th>
+        <th>Phone-------------</th>
+        <th>Email-------------</th>  
+    </thead> 
+    <tbody> 
+        {{#each Shelters}} 
+        <tr> 
+            <td>{{name}}</td> 
+            <td>{{locID}}</td>
+            <td>{{password}}</td>
+            <td>{{phone}}</td>
+            <td>{{email}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+<h3>Current Address list:</h3> <!--a table to display shelters -->
+<table>
+    <thead> 
+        <th>location ID--</th> 
+        <th>street------------</th>
+        <th>city-------------</th>  
+        <th>state-------------</th>  
+        <th>zip---------------</th>  
+
+    </thead> 
+    <tbody> 
+        {{#each Address}} 
+        <tr> 
+            <td>{{locID}}</td> 
+            <td>{{street}}</td> 
+            <td>{{city}}</td>
+            <td>{{state}}</td>
+            <td>{{zip}}</td>
+        </tr> 
+        {{/each}}
+    </tbody> 
+</table>
+<br/>
+
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

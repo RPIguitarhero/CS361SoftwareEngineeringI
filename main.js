@@ -10,11 +10,17 @@ app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]); //you could set it to a constant port without manually sepcifiying it during every run
 app.set('mysql', mysql);
 
+//default home page, this page only provides redirection and has no data interaction, so don't bind it with any JS script via use method
+app.get('/',function(req,res){
+res.render('Index');
+});
+//page redriections for spoters and shelters(to be completed)
+//app.get('/Spoter',function(req,res){
+//res.render('Spoter');
+//});
 //page redirections and JS script binding
-app.use('/Index',require('./Index.js')); //only using a single handlebar for DB debugging
-
-
-
+app.use('/Registration',require('./Registration.js'));
+app.use('/Login', require('./Login.js'));
 
 
 //404 and 500 handlebars

@@ -12,3 +12,13 @@ About DB:
 5.Professor Terry just gave everyone DB access for CS361, I used mine to host the current DB.
 
 Kai-Nov 15
+
+Updates NOV 24
+1.the pages are now refactored; spoters, shelters, log-in, register pages are now separated and connected.
+2.Log-in process is implemented, but it is not using session/cookie, which makes it unsafe. If I had the time I would learn related related PHP stuff to make it better.
+3.added missing attributes such as "email" and "phone number".
+4.tried my best at layout and aesthetics.
+
+TO-DO
+1.finish report page for spoters and shelter employees.
+2.visual improvements in general. 

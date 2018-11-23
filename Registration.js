@@ -16,7 +16,7 @@ module.exports = function(){
     }
 
         function getSpoters(res, mysql, context, complete){
-        mysql.pool.query("SELECT fName, lName, locID, password FROM Spoters", function(error, results, fields){
+        mysql.pool.query("SELECT fName, lName, locID, password, email, phone, points FROM Spoters", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -27,7 +27,7 @@ module.exports = function(){
     }
 
         function getShelters(res, mysql, context, complete){
-        mysql.pool.query("SELECT name, locID, password FROM Shelters", function(error, results, fields){
+        mysql.pool.query("SELECT name, locID, password, email, phone FROM Shelters", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -37,7 +37,7 @@ module.exports = function(){
         });
     }
 
-    //a helper function to get the latest locID
+    //a helper function to get the latest locID which is useful for account creation
     function getlastAddressID(res, mysql, context,complete ){
         mysql.pool.query("SELECT MAX(locID) AS retID FROM Address", function(error, results, fields){
             if(error){
@@ -61,7 +61,7 @@ module.exports = function(){
         function complete(){
             callbackCount++;
             if(callbackCount >= 4){
-                res.render('Index', context); //after these function calls, we will basically refresh the page with the updated context
+                res.render('Registration', context); //after these function calls, we will basically refresh the page with the updated context
             }
 
         }
@@ -88,23 +88,37 @@ module.exports = function(){
         console.log(req.body.shelterSpoter); //DEBUG:check if the selection option is read correctly
         var newID=parseInt(req.body.ID)+1; //increment the hidden locID by 1 because it was the latest ID before address creation.
         console.log(newID);//DEBUG:check if new address ID is read correctly
-        var sql2="INSERT INTO Spoters (fName,lName,locID,password) VALUES (?,?,?,?)";//add to Spoters by default
-        var inserts2 = [req.body.fName, req.body.lName, newID, req.body.password];
-        if(req.body.BoS=='shelter')//if shelter is selected, change queries accordingly
+        if(req.body.shelterSpoter=='spoter')//if spoter is selected, change queries accordingly
         {
-        sql2="INSERT INTO Shelters (name,locID,password) VALUES (?,?,?)";
-        inserts2=[req.body.sName,newID,req.body.password];
-        } 
-        
+        var sql2="INSERT INTO Spoters (fName,lName,locID,password, email, phone) VALUES (?,?,?,?,?,?)";//add to Spoters by default
+        var inserts2 = [req.body.fName, req.body.lName, newID, req.body.password, req.body.inputEmail, req.body.inputNum];
         sql2 = mysql.pool.query(sql2,inserts2,function(error, results, fields){
             if(error){
                 console.log(JSON.stringify(error))
                 res.write(JSON.stringify(error));
-                res.end();
+                res.redirect('/Registration');
             } else{ //at this point, all the queries have been sent to DB. To see the updates, we need to "refresh" our page. 
-                res.redirect('/Index'); //we are not use render() because we are not parsing any "context" here
+                res.redirect('/Registration'); //we are not use render() because we are not parsing any "context" here
             }       
         });
+        }
+
+        if(req.body.shelterSpoter=='shelter')//if shelter is selected, change queries accordingly
+        {
+        var sql2="INSERT INTO Shelters (name,locID,password, email, phone) VALUES (?,?,?,?,?)";
+        var inserts2=[req.body.sName,newID,req.body.password,req.body.inputEmail, req.body.inputNum];
+        sql2 = mysql.pool.query(sql2,inserts2,function(error, results, fields){
+            if(error){
+                console.log(JSON.stringify(error))
+                res.write(JSON.stringify(error));
+                res.redirect('/Registration');
+            } else{ //at this point, all the queries have been sent to DB. To see the updates, we need to "refresh" our page. 
+                res.redirect('/Registration'); //we are not use render() because we are not parsing any "context" here
+            }       
+        });
+        } 
+        
+
 
     });
 
