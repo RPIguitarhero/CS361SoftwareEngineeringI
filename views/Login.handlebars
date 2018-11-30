@@ -1,0 +1,59 @@
+<html>
+<title>Login</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<style>
+.jumbotron{
+    background-color:#33FFB5;
+    color:black;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs {
+    margin-bottom: 0;
+}
+</style>
+</head>
+
+<div class="container">
+    <div class="page-header">
+        <h1>Log-in page</h1>
+    </div>
+<body>
+    <div class="jumbotron">
+<form id="Log-in" action="/Login" method="post"> <!--a form to send queries to DB via "POST" method-->
+    <h3 name="prompt">{{promp}}</h3>
+    <br/>
+    <input type="hidden" name="promptFlag" value="{{prompF}}"><!----a flag to show if error message is displayed--->
+    <br/>
+    For shelters, input shelter name only:<input  type="text" name="sName" >
+    <br/>
+    For spoters, input First name:<input  type="text" name="fName" >
+    <br/>
+    For spoters, input Last name:<input  type="text" name="lName" >
+    <br/>
+    log in as:<select name="shelterSpoter"> <!--let the user pick identity by selecting, could use input field instead-->
+        <option value="spoter">as spoter</option>
+        <option value="shelter">as shelter employee</option>
+    </select>
+    <br/>
+    Your password:<input  type="password" name="password" >
+    <br/>
+
+    <input type="submit" value="log-in" style="color:black">
+</form>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
