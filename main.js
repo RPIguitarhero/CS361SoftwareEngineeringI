@@ -11,11 +11,8 @@ app.set('port', process.argv[2]); //you could set it to a constant port without 
 app.set('mysql', mysql);
 
 //page redirections and JS script binding
-app.use('/Index',require('./Index.js')); //only using a single handlebar for DB debugging
-
-
-
-
+app.use('/',require('./Index.js')); //only using a single handlebar for DB debugging
+app.use('/report',require('./report.js'));
 
 //404 and 500 handlebars
 app.use(function(req,res){

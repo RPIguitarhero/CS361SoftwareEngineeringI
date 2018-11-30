@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
 
     //display address,spoters, and shelters
-        function getAddress(res, mysql, context, complete){
+    function getAddress(res, mysql, context, complete) {
         mysql.pool.query("SELECT locID, street, city,state,zip FROM Address", function(error, results, fields){
             if(error){ //error handlers, notifty the error when something goes wrong in query
                 res.write(JSON.stringify(error));
@@ -15,7 +15,7 @@ module.exports = function(){
         });
     }
 
-        function getSpoters(res, mysql, context, complete){
+    function getSpoters(res, mysql, context, complete){
         mysql.pool.query("SELECT fName, lName, locID, password FROM Spoters", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -26,7 +26,7 @@ module.exports = function(){
         });
     }
 
-        function getShelters(res, mysql, context, complete){
+    function getShelters(res, mysql, context, complete){
         mysql.pool.query("SELECT name, locID, password FROM Shelters", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -48,6 +48,7 @@ module.exports = function(){
             complete();
         });
     }
+
     //this is the default loading actions when user types in URL the this page
     router.get('/', function(req, res){ 
         var callbackCount = 0; //this is the variable that will be incremented by the complete() functions in every getXXXX function
@@ -63,13 +64,11 @@ module.exports = function(){
             if(callbackCount >= 4){
                 res.render('Index', context); //after these function calls, we will basically refresh the page with the updated context
             }
-
         }
     });
 
-
-	//this is the default action when a POST method is invoked on the page. In this case, whenever our "submit" button is clicked
-   router.post('/', function(req, res){
+    //this is the default action when a POST method is invoked on the page. In this case, whenever our "submit" button is clicked
+    router.post('/', function(req, res){
         console.log(req.body) //for debugging only, will display what raw data(not query) is being sent to the server.
         var mysql = req.app.get('mysql')
         //this is the SQL query that will be sent, note that the 4 question marks are used for security and actual arguments are passed in the following variable "inserts"
@@ -107,9 +106,6 @@ module.exports = function(){
         });
 
     });
-
-
-
 
 return router;
 }();
